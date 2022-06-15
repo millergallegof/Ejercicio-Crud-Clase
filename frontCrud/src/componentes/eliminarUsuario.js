@@ -14,7 +14,7 @@ export default function eliminarUsuario(url) {
         const fila = e.target.parentNode.parentNode
         const id = fila.firstElementChild.innerHTML
         console.log(e);
-        alertify.confirm("This is a confirm dialog.",
+        alertify.confirm("Esta Seguro de Eliminar este usuario",
             function () {
                 fetch(url + id, {
                     method: 'DELETE'

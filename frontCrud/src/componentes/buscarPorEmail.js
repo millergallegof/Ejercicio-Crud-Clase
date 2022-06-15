@@ -33,7 +33,7 @@ export default async function buscarPorEmail(url) {
         console.log("eliminar email");
         let email = document.getElementById("email").value
         if (email) {
-            alertify.confirm("Esta Seguro de eliminar este usuario",
+            alertify.confirm(`Esta Seguro de eliminar el usuario con el correo ${email}`,
                 function () {
                     fetch(`${url}email/${email}`, {
                         method: 'DELETE'
