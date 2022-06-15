@@ -12,37 +12,47 @@ import java.util.Optional;
 public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
-    
-    public ArrayList<UsuarioModel> obtenerUsuarios(){
+
+    public ArrayList<UsuarioModel> obtenerUsuarios() {
         return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
     }
 
-    public UsuarioModel guardarUsuario(UsuarioModel usuario){
+    public UsuarioModel guardarUsuario(UsuarioModel usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<UsuarioModel> obtenerPorId(Long id){
+    public Optional<UsuarioModel> obtenerPorId(Long id) {
         return usuarioRepository.findById(id);
     }
 
 
-    public ArrayList<UsuarioModel>  obtenerPorPrioridad(Integer prioridad) {
+    public ArrayList<UsuarioModel> obtenerPorPrioridad(Integer prioridad) {
         return usuarioRepository.findByPrioridad(prioridad);
     }
 
-    public ArrayList<UsuarioModel>  obtenerPorEmail(String email) {
+    public Optional<UsuarioModel> obtenerPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
     public boolean eliminarUsuario(Long id) {
-        try{
+        try {
             usuarioRepository.deleteById(id);
             return true;
-        }catch(Exception err){
+        } catch (Exception err) {
+            return false;
+        }
+    }
+
+    public boolean eliminarUsuarioPorEmail(String email) {
+        try {
+            Optional<UsuarioModel> usuario = usuarioRepository.findByEmail(email);
+            long id = usuario.get().getId();
+            usuarioRepository.deleteById(id);
+            return true;
+        } catch (Exception err) {
             return false;
         }
     }
 
 
-    
 }

@@ -35,8 +35,8 @@ public class UsuarioController {
         return this.usuarioService.obtenerPorPrioridad(prioridad);
     }
 
-    @GetMapping("/email/query")
-    public ArrayList<UsuarioModel> obtenerPorEmail(@RequestParam("email") String email) {
+    @GetMapping("/buscarEmail/{email}")
+    public Optional<UsuarioModel> obtenerPorEmail(@PathVariable("email") String email) {
         return this.usuarioService.obtenerPorEmail(email);
     }
 
@@ -47,6 +47,16 @@ public class UsuarioController {
             return "Se eliminó el usuario con id " + id;
         } else {
             return "No pudo eliminar el usuario con id" + id;
+        }
+    }
+
+    @DeleteMapping(path = "/email/{email}")
+    public String eliminarUsuarioPorEmail(@PathVariable("email") String email) {
+        boolean ok = this.usuarioService.eliminarUsuarioPorEmail(email);
+        if (ok) {
+            return "Se eliminó el usuario con email " + email;
+        } else {
+            return "No pudo eliminar el usuario con email" + email;
         }
     }
 
